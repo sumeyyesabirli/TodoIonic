@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { TodoService } from '../todo.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 interface Task {
   key: any;
@@ -15,6 +17,8 @@ interface Task {
   selector: 'app-update-task',
   templateUrl: './update-task.component.html',
   styleUrls: ['./update-task.component.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class UpdateTaskComponent implements OnInit {
   @Input()

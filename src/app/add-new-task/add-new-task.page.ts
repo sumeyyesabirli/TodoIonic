@@ -3,6 +3,8 @@ import { IonicModule, ModalController } from '@ionic/angular';
 import { TodoService } from '../todo.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { v4 as uuidv4 } from 'uuid';
+import { DataModel } from '../models/data.model';
 
 
 @Component({
@@ -12,17 +14,19 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class AddNewTaskPage implements OnInit {
+export class AddNewTaskPage implements OnInit  {
   categories: string[] = [];
   categorySelectedCategory: any;
+  //DBcategory:keyof,value
 
-  newTaskObj = {};
+
+  newTaskObj:DataModel = new DataModel('','','','');
   itemName: any;
   itemDueDate: any;
   itemPriority: any;
   itemCategory: any;
 
-  constructor(public modalCtlr: ModalController, public todoService: TodoService) {}
+  constructor(public modalCtlr: ModalController, public todoService: TodoService) { }
 
   ngOnInit() {
     this.categories.push('work');
@@ -37,15 +41,15 @@ export class AddNewTaskPage implements OnInit {
       itemCategory: this.categorySelectedCategory
     };
     console.log(this.newTaskObj);
-    let uid = this.itemName + this.itemDueDate;
-
+    //let uid = this.itemName + this.itemDueDate;
+    let uid = uuidv4();
     if (uid) {
       await this.todoService.addTask(uid, this.newTaskObj);
     } else {
-      console.log("Boş gönderi kaydedilemedi");
+      alert("Boş gönderi kaydedilemedi");
     }
 
-    this.dismiss();
+    this.dismis();
   }
 
   selectCategory(index: string | number) {
@@ -53,7 +57,14 @@ export class AddNewTaskPage implements OnInit {
     console.log(this.categorySelectedCategory);
   }
 
-  async dismiss() {
+  new(){
+
+  }
+
+  async dismis() {
     await this.modalCtlr.dismiss(this.newTaskObj);
   }
 }
+
+
+

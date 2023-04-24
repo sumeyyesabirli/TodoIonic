@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UpdateTaskComponent } from './update-task.component';
-
-
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
+import { HomePageRoutingModule } from '../home/home-routin.module';
 
 const routes: Routes = [
   {
@@ -12,10 +14,17 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes),CommonModule,
+    FormsModule,
+    IonicModule,
+    HomePageRoutingModule],
   exports: [RouterModule],
 })
-export class UpdateTaskRoutingModule {}
+
+
+export class UpdateTaskRoutingModule {
+  exports: [UpdateTaskComponent] | undefined
+}
 
 
 

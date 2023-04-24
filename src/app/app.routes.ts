@@ -17,9 +17,10 @@ export const routes: Routes = [
   },
   {
     path: 'update-task',
-    loadChildren: () => import('./update-task/update-task.module').then( m => m.UpdateTaskComponentModule)
+    loadChildren: () => import('./update-task/update-task.component').then( m => m.UpdateTaskComponent)
   },
 ];
+
 
 @NgModule({
   imports: [

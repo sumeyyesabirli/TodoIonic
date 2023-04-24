@@ -4,7 +4,6 @@ import { IonicModule, ModalController } from '@ionic/angular';
 import { AddNewTaskPage } from '../add-new-task/add-new-task.page';
 import { TodoService } from '../todo.service';
 import { UpdateTaskComponent } from '../update-task/update-task.component';
-import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +14,12 @@ import { Storage } from '@ionic/storage';
   imports: [IonicModule, CommonModule]
 })
 export class HomePage {
-  todoList: { key: string, value: any }[] = [];
+  //todoList: { key: string, value: any }[] = [];
+  todoList: any[] = [];
 
   today: number = Date.now();
 
-  constructor(public modalCtlr: ModalController, public todoService:TodoService) {
+  constructor(private readonly modalCtlr: ModalController, private readonly todoService:TodoService) {
     this.getAllTask()
   }
 
@@ -29,13 +29,15 @@ export class HomePage {
     })
     modal.onDidDismiss().then(newTask =>{
       this.getAllTask()
+      console.warn('liste', this.todoList)
     })
     return await modal.present()
   }
 
    getAllTask(){
     this.todoList = this.todoService.getAllTasks()
-    console.log(this.todoService.getAllTasks());
+    //console.log('data',data)
+    //console.log(this.todoService.getAllTasks());
   }
 
   delete(key: string) {
